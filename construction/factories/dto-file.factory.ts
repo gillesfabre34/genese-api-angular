@@ -12,10 +12,11 @@ export class DtoFileFactory {
 
 
 	create(dtoName: string, schema: Schema) {
-		const fileName = dtoName.charAt(0).toLowerCase() + dtoName.slice(1);
-		const path = `/genese/genese-api/dtos/${fileName}.dto.ts`;
+		const fileName = `${this.fileService.formatFileName(dtoName)}.dto.ts`;
+		// const fileName = `${dtoName.charAt(0).toLowerCase()}${dtoName.slice(1)}.dto.ts`;
+		const path = `/genese/genese-api/dtos/`;
 		this.setContent(dtoName, schema);
-		this.fileService.createFile(path, this.content);
+		this.fileService.createFile(path, fileName, this.content);
 	}
 
 

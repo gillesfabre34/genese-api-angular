@@ -8,7 +8,7 @@ var Construction = /** @class */ (function () {
     function Construction() {
         this.appRoot = appRootPath.toString();
         this.createOpenApi = new open_api_factory_1.OpenApiFactory();
-        this.geneseRequestServiceFactory = new genese_request_service_factory_1.GeneseRequestServiceFactory();
+        this.geneseRequestServiceFactory = genese_request_service_factory_1.GeneseRequestServiceFactory.getInstance();
     }
     Construction.prototype.startConstruction = function () {
         this.createFolders();

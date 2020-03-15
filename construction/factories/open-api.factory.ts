@@ -17,6 +17,5 @@ export class OpenApiFactory implements InitFactoriesInterface {
 		this.openApiService.openApi = {openapi: this.openApiService.getOpenApiJsonFile().openapi};
 		this.openApiService.next(this.openApiService.getOpenApiJsonFile(), ComponentsFactory);
 		this.openApiService.next(this.openApiService.getOpenApiJsonFile(), PathsFactory);
-		// console.log('OPENAPI init this.openApiService.getOpenApi', this.openApiService.openApi);
 	}
 }

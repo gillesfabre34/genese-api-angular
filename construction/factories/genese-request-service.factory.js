@@ -8,12 +8,19 @@ var GeneseRequestServiceFactory = /** @class */ (function () {
         this.classService = new class_service_1.ClassService();
         this.fileService = new file_service_1.FileService();
     }
+    GeneseRequestServiceFactory.getInstance = function () {
+        if (!GeneseRequestServiceFactory.instance) {
+            GeneseRequestServiceFactory.instance = new GeneseRequestServiceFactory();
+        }
+        return GeneseRequestServiceFactory.instance;
+    };
     GeneseRequestServiceFactory.prototype.init = function () {
         this.addImports();
         this.addDeclaration();
         this.addConstructor();
         this.addMethods();
-        this.fileService.createFile("/genese/genese-api/services/genese-request.service.ts", this.classService.getContent());
+        // return this.classService.getContent();
+        // this.fileService.createFile(`/genese/genese-api/services/genese-request.service.ts`, this.classService.getContent());
     };
     GeneseRequestServiceFactory.prototype.addDeclaration = function () {
         this.classService.setClassDeclarationPart('GeneseRequestService', '@Injectable()');

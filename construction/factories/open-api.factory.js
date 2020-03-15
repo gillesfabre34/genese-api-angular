@@ -11,7 +11,6 @@ var OpenApiFactory = /** @class */ (function () {
         this.openApiService.openApi = { openapi: this.openApiService.getOpenApiJsonFile().openapi };
         this.openApiService.next(this.openApiService.getOpenApiJsonFile(), components_factory_1.ComponentsFactory);
         this.openApiService.next(this.openApiService.getOpenApiJsonFile(), paths_factory_1.PathsFactory);
-        // console.log('OPENAPI init this.openApiService.getOpenApi', this.openApiService.openApi);
     };
     return OpenApiFactory;
 }());

@@ -15,11 +15,11 @@ export class PathItemFactory implements InitFactoriesInterface {
 
 
 
-	init(target: PathItem, path: string): any {
-		this.openApiService.openApi.paths[path] = {};
+	init(target: PathItem, route: string): any {
+		this.openApiService.openApi.paths[route] = {};
 		if (target?.get?.responses?.['200']?.['content']) {
 			const getRequestFactory: GetRequestFactory = new GetRequestFactory();
-			getRequestFactory.create(path, target?.get?.responses?.['200']?.['content']);
+			getRequestFactory.create(route, target?.get?.responses?.['200']?.['content']);
 		}
 	}
 

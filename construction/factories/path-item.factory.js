@@ -7,12 +7,12 @@ var PathItemFactory = /** @class */ (function () {
     function PathItemFactory() {
         this.openApiService = open_api_service_1.OpenApiService.getInstance();
     }
-    PathItemFactory.prototype.init = function (target, path) {
+    PathItemFactory.prototype.init = function (target, route) {
         var _a, _b, _c, _d, _e, _f;
-        this.openApiService.openApi.paths[path] = {};
+        this.openApiService.openApi.paths[route] = {};
         if ((_c = (_b = (_a = target === null || target === void 0 ? void 0 : target.get) === null || _a === void 0 ? void 0 : _a.responses) === null || _b === void 0 ? void 0 : _b['200']) === null || _c === void 0 ? void 0 : _c['content']) {
             var getRequestFactory = new get_request_factory_1.GetRequestFactory();
-            getRequestFactory.create(path, (_f = (_e = (_d = target === null || target === void 0 ? void 0 : target.get) === null || _d === void 0 ? void 0 : _d.responses) === null || _e === void 0 ? void 0 : _e['200']) === null || _f === void 0 ? void 0 : _f['content']);
+            getRequestFactory.create(route, (_f = (_e = (_d = target === null || target === void 0 ? void 0 : target.get) === null || _d === void 0 ? void 0 : _d.responses) === null || _e === void 0 ? void 0 : _e['200']) === null || _f === void 0 ? void 0 : _f['content']);
         }
     };
     PathItemFactory.prototype.createDtos = function (path, pathItem) {

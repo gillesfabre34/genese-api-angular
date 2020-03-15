@@ -8,7 +8,7 @@ export class Construction {
 
 	private appRoot = appRootPath.toString();
 	private createOpenApi = new OpenApiFactory();
-	private geneseRequestServiceFactory = new GeneseRequestServiceFactory();
+	private geneseRequestServiceFactory: GeneseRequestServiceFactory = GeneseRequestServiceFactory.getInstance();
 
 
 	constructor() {
