@@ -32,5 +32,3 @@ export class Construction {
 
 }
 
-const construction = new Construction();
-construction.startConstruction();

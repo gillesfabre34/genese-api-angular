@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var npm_module_factory_1 = require("./module-creator/npm-module.factory");
-var npmModuleFactory = new npm_module_factory_1.NpmModuleFactory();
-npmModuleFactory.startConstruction();
+var appRoot = require('app-root-path');
+var construction = require('./construction/construction');
+var geneseApi = new construction.Construction();
+geneseApi.startConstruction();
