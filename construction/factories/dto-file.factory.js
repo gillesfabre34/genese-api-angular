@@ -7,10 +7,11 @@ var DtoFileFactory = /** @class */ (function () {
         this.fileService = new file_service_1.FileService();
     }
     DtoFileFactory.prototype.create = function (dtoName, schema) {
-        var fileName = dtoName.charAt(0).toLowerCase() + dtoName.slice(1);
-        var path = "/genese/genese-api/dtos/" + fileName + ".dto.ts";
+        var fileName = this.fileService.formatFileName(dtoName) + ".dto.ts";
+        // const fileName = `${dtoName.charAt(0).toLowerCase()}${dtoName.slice(1)}.dto.ts`;
+        var path = "/genese/genese-api/dtos/";
         this.setContent(dtoName, schema);
-        this.fileService.createFile(path, this.content);
+        this.fileService.createFile(path, fileName, this.content);
     };
     DtoFileFactory.prototype.setContent = function (dtoName, schema) {
         this.content = '\r\nexport class ' + dtoName + ' {\r\n\r\n';

@@ -5,15 +5,17 @@ import { Tools } from './tools';
 export class ClassService {
 
 	public classDeclarationPart = '';
+	public className = '';
 	public constructorInstructions = '';
 	public constructorParams = '';
 	public constructorPart = '';
 	public content = '';
 	public endOfFilePart = '\r\n}\r\n';
+	public fileName = '';
 	public importsPart = '';
 	public methods: Method[] = [];
 	public methodsPart = '';
-	public propertiesPart = '\r\n';
+	public propertiesPart = '\r\n\t';
 
 
 	constructor() {
@@ -43,7 +45,7 @@ export class ClassService {
 
 
 	addProperty(line = ''): void {
-		this.propertiesPart = this.propertiesPart ? `${this.propertiesPart}\t${line}\r\n\t` : `\t${line}\r\n\t`;
+		this.propertiesPart = `${this.propertiesPart}${line}\r\n\t`;
 	}
 
 
@@ -54,7 +56,7 @@ export class ClassService {
 
 
 	setConstructorPart(): void {
-		this.constructorPart = `\tconstructor(\r\n\t\t${this.constructorParams}) {\r\n\t\t${this.constructorInstructions}}\r\n`;
+		this.constructorPart = `\r\n\tconstructor(\r\n\t\t${this.constructorParams}) {\r\n\t\t${this.constructorInstructions}}\r\n`;
 	}
 
 
@@ -124,20 +126,5 @@ export class ClassService {
 		this.content = `${this.importsPart}${this.classDeclarationPart}${this.propertiesPart}` +
 			`${this.constructorPart}${this.methodsPart}${this.endOfFilePart}`;
 		return this.content;
-	}
-
-
-
-	formatFileName(className: string): string {
-		let fileName = className.charAt(0).toLowerCase();
-		for (let i = 1; i < className.length; i++) {
-			if (className.charAt(i).toLowerCase() !== className.charAt(i)) {
-				fileName += `-${className.charAt(i).toLowerCase()}`;
-			} else {
-				fileName += className.charAt(i);
-			}
-		}
-		fileName = fileName.replace('_', '-');
-		return fileName;
 	}
 }

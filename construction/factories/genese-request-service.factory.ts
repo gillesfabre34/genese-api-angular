@@ -6,19 +6,26 @@ export class GeneseRequestServiceFactory {
 
 	public classService = new ClassService();
 	private fileService: FileService = new FileService();
+	private static instance?: GeneseRequestServiceFactory;
 
-	constructor() {
+	private constructor() {
 
 	}
 
-
+	static getInstance() {
+		if (!GeneseRequestServiceFactory.instance) {
+			GeneseRequestServiceFactory.instance = new GeneseRequestServiceFactory();
+		}
+		return GeneseRequestServiceFactory.instance;
+	}
 
 	init(): void {
 		this.addImports();
 		this.addDeclaration();
 		this.addConstructor();
 		this.addMethods();
-		this.fileService.createFile(`/genese/genese-api/services/genese-request.service.ts`, this.classService.getContent());
+		// return this.classService.getContent();
+		// this.fileService.createFile(`/genese/genese-api/services/genese-request.service.ts`, this.classService.getContent());
 	}
 
 
