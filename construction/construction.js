@@ -23,5 +23,3 @@ var Construction = /** @class */ (function () {
     return Construction;
 }());
 exports.Construction = Construction;
-var construction = new Construction();
-construction.startConstruction();

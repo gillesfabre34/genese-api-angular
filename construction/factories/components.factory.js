@@ -7,7 +7,8 @@ var ComponentsFactory = /** @class */ (function () {
         this.openApiService = open_api_service_1.OpenApiService.getInstance();
     }
     ComponentsFactory.prototype.init = function (target) {
-        if (target === null || target === void 0 ? void 0 : target.components) {
+        var _a;
+        if ((_a = target) === null || _a === void 0 ? void 0 : _a.components) {
             this.openApiService.openApi.components = {};
             this.openApiService.next(target.components, schemas_factory_1.SchemasFactory);
         }
