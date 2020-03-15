@@ -9,7 +9,7 @@ export class ClassService {
 	public constructorParams = '';
 	public constructorPart = '';
 	public content = '';
-	public endOfFilePart = '\r\n}';
+	public endOfFilePart = '\r\n}\r\n';
 	public importsPart = '';
 	public methods: Method[] = [];
 	public methodsPart = '';
@@ -43,7 +43,7 @@ export class ClassService {
 
 
 	addProperty(line = ''): void {
-		this.propertiesPart = this.propertiesPart ? `${this.propertiesPart}${line}\r\n\t` : `${line}\r\n\t`;
+		this.propertiesPart = this.propertiesPart ? `${this.propertiesPart}\t${line}\r\n\t` : `\t${line}\r\n\t`;
 	}
 
 
@@ -114,16 +114,15 @@ export class ClassService {
 
 
 	setClassDeclarationPart(className: string, decorator?: string): void {
-		const firstLine: string = decorator ? `${decorator}\r\n` : '\r\n';
+		const firstLine: string = decorator ? `\r\n${decorator}\r\n` : '\r\n';
 		this.classDeclarationPart = `${firstLine}export class ${className} {\r\n\r\n`;
 	}
 
 
 
 	getContent(): string {
-
-		this.content = `${this.importsPart}\r\n${this.classDeclarationPart}\r\n${this.propertiesPart}\r\n` +
-			`${this.constructorPart}\r\n${this.methodsPart}\r\n${this.endOfFilePart}\r\n`;
+		this.content = `${this.importsPart}${this.classDeclarationPart}${this.propertiesPart}` +
+			`${this.constructorPart}${this.methodsPart}${this.endOfFilePart}`;
 		return this.content;
 	}
 

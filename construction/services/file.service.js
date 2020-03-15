@@ -7,9 +7,6 @@ var FileService = /** @class */ (function () {
         this.appRoot = appRootPath.toString();
     }
     FileService.prototype.createFile = function (path, data) {
-        // console.log('createFile path', path);
-        // console.log('createFile this.appRoot', this.appRoot);
-        // console.log('createFile', this.appRoot + path);
         var pathFolder = this.appRoot + path;
         if (path.includes('/')) {
             var splittedPath = path.split('/');
@@ -19,7 +16,7 @@ var FileService = /** @class */ (function () {
         fse.writeFileSync(this.appRoot + path, data);
     };
     FileService.prototype.readFile = function (path) {
-        return fse.readFileSync(this.appRoot + path, 'utf-8');
+        return fse.readFile(this.appRoot + path, 'utf-8');
     };
     FileService.prototype.removeFile = function (path) {
         return fse.removeSync(this.appRoot + path);

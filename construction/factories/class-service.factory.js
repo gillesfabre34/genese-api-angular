@@ -14,15 +14,17 @@ var ClassServiceFactory = /** @class */ (function () {
     //					New ClassService from existing file
     // ----------------------------------------------------------------------------
     ClassServiceFactory.prototype.createClassServiceFromFile = function (path) {
-        this.contentFile = this.fileService.readFile(path);
-        this.partOfContentFile = this.contentFile;
-        this.addImports()
-            .addDeclaration()
-            .addProperties()
-            .addConstructor()
-            .addMethods();
-        // console.log('CLASS SERVICE FACTORY createClassServiceFromFile this.classService.getContent', this.classService.getContent());
-        return this.classService;
+        var _this = this;
+        return this.fileService.readFile(path).then(function (contentFile) {
+            _this.contentFile = contentFile;
+            _this.partOfContentFile = _this.contentFile;
+            _this.addImports()
+                .addDeclaration()
+                .addProperties()
+                .addConstructor()
+                .addMethods();
+            return _this.classService;
+        });
     };
     ClassServiceFactory.prototype.addImports = function () {
         var beforeExportClass = this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('export class'));
@@ -36,12 +38,12 @@ var ClassServiceFactory = /** @class */ (function () {
         return this;
     };
     ClassServiceFactory.prototype.addProperties = function () {
-        this.classService.propertiesPart = this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('constructor')) + "\r\n";
-        this.partOfContentFile = this.partOfContentFile.slice(this.partOfContentFile.indexOf('constructor'));
+        this.classService.propertiesPart = "" + this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('constructor') - 3);
+        this.partOfContentFile = this.partOfContentFile.slice(this.partOfContentFile.indexOf('constructor') - 3);
         return this;
     };
     ClassServiceFactory.prototype.addConstructor = function () {
-        this.classService.propertiesPart = this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('}') + 1) + "\r\n";
+        this.classService.constructorPart = this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('}') + 1) + "\r\n";
         this.partOfContentFile = this.partOfContentFile.slice(this.partOfContentFile.indexOf('}'));
         return this;
     };

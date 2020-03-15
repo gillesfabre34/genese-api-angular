@@ -8,7 +8,7 @@ var ClassService = /** @class */ (function () {
         this.constructorParams = '';
         this.constructorPart = '';
         this.content = '';
-        this.endOfFilePart = '\r\n}';
+        this.endOfFilePart = '\r\n}\r\n';
         this.importsPart = '';
         this.methods = [];
         this.methodsPart = '';
@@ -26,7 +26,7 @@ var ClassService = /** @class */ (function () {
     // ----------------------------------------------------------------------------
     ClassService.prototype.addProperty = function (line) {
         if (line === void 0) { line = ''; }
-        this.propertiesPart = this.propertiesPart ? "" + this.propertiesPart + line + "\r\n\t" : line + "\r\n\t";
+        this.propertiesPart = this.propertiesPart ? this.propertiesPart + "\t" + line + "\r\n\t" : "\t" + line + "\r\n\t";
     };
     // ----------------------------------------------------------------------------
     //							Constructor generation
@@ -69,12 +69,12 @@ var ClassService = /** @class */ (function () {
     //							Other methods
     // ----------------------------------------------------------------------------
     ClassService.prototype.setClassDeclarationPart = function (className, decorator) {
-        var firstLine = decorator ? decorator + "\r\n" : '\r\n';
+        var firstLine = decorator ? "\r\n" + decorator + "\r\n" : '\r\n';
         this.classDeclarationPart = firstLine + "export class " + className + " {\r\n\r\n";
     };
     ClassService.prototype.getContent = function () {
-        this.content = this.importsPart + "\r\n" + this.classDeclarationPart + "\r\n" + this.propertiesPart + "\r\n" +
-            (this.constructorPart + "\r\n" + this.methodsPart + "\r\n" + this.endOfFilePart + "\r\n");
+        this.content = "" + this.importsPart + this.classDeclarationPart + this.propertiesPart +
+            ("" + this.constructorPart + this.methodsPart + this.endOfFilePart);
         return this.content;
     };
     ClassService.prototype.formatFileName = function (className) {

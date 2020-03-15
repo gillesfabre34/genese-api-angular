@@ -11,16 +11,13 @@ import { RootSchema } from '../models/open-api/root-schema';
 import { ClassServiceFactory } from './class-service.factory';
 import { PartFile } from '../models/part-file.enum';
 
-const appRootPath = require('app-root-path');
 
 export class GetRequestFactory {
 
-	private appRoot = appRootPath.toString();
 	private classService = new ClassService();
 	private className = '';
 	private classNameService = '';
 	private content = '';
-	private dtoName = '';
 	private fileName = '';
 	private fileService: FileService = new FileService();
 	private classServiceFactory: ClassServiceFactory = new ClassServiceFactory();
@@ -56,7 +53,7 @@ export class GetRequestFactory {
 		this.classService.addImport('Observable', 'rxjs');
 		this.classService.addImport('HttpClient', '@angular/common/http');
 		this.classService.addImport('Injectable', '@angular/core');
-		this.classService.addImport('Genese, GeneseEnvironmentService, GeneseService', 'genese-angular');
+		this.classService.addImport('GeneseEnvironmentService, GeneseService', 'genese-angular');
 	}
 
 
@@ -81,7 +78,7 @@ export class GetRequestFactory {
 		this.classService.addMethod(this.method);
 		const returnLine = `return this.geneseService.getGeneseInstance(${dtoName}).${geneseMethod}Custom('${this.path}') as any;`;
 		this.classService.addLineToMethod(this.method.name, returnLine);
-		this.classService.addImport(dtoName, `../dtos/schemas/${this.classService.formatFileName(dtoName)}.dto`);
+		this.classService.addImport(dtoName, `../dtos/${this.classService.formatFileName(dtoName)}.dto`);
 	}
 
 
@@ -159,11 +156,12 @@ export class GetRequestFactory {
 
 
 
-	addMethodToGeneseRequestService(): void {
-		const geneseRequestService = this.classServiceFactory.createClassServiceFromFile(`/genese/genese-api/services/genese-request.service.ts`);
+	async addMethodToGeneseRequestService() {
+		const geneseRequestService = await this.classServiceFactory.createClassServiceFromFile(`/genese/genese-api/services/genese-request.service.ts`);
 		geneseRequestService.addLineToMethod('init', `this.${this.method.name} = this.${Tools.unCapitalize(this.classNameService)}.${this.method.name};`);
-		geneseRequestService.addLine(PartFile.PROPERTIES, `public ${this.method.name}: () => Observable<${this.observableType}>;`);
-		this.fileService.removeFile(`/genese/genese-api/services/genese-request.service.ts`);
+		geneseRequestService.addProperty(`public ${this.method.name}: () => Observable<${this.observableType}>;\r\n`);
+		console.log('ZZZZZZZZZZZZ geneseRequestService.getContent()', geneseRequestService.getContent());
+		// this.fileService.removeFile(`/genese/genese-api/services/genese-request.service.ts`);
 		this.fileService.createFile(`/genese/genese-api/services/genese-request.service.ts`, geneseRequestService.getContent());
 	}
 

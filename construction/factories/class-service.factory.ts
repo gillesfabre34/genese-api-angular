@@ -23,16 +23,17 @@ export class ClassServiceFactory {
 
 
 
-	createClassServiceFromFile(path: string): ClassService {
-		this.contentFile = this.fileService.readFile(path);
-		this.partOfContentFile = this.contentFile;
-		this.addImports()
-			.addDeclaration()
-			.addProperties()
-			.addConstructor()
-			.addMethods();
-		// console.log('CLASS SERVICE FACTORY createClassServiceFromFile this.classService.getContent', this.classService.getContent());
-		return this.classService;
+	createClassServiceFromFile(path: string): Promise<ClassService> {
+		 return this.fileService.readFile(path).then(contentFile => {
+			 this.contentFile = contentFile;
+			 this.partOfContentFile = this.contentFile;
+			 this.addImports()
+				 .addDeclaration()
+				 .addProperties()
+				 .addConstructor()
+				 .addMethods();
+			 return this.classService;
+		});
 	}
 
 
@@ -55,15 +56,15 @@ export class ClassServiceFactory {
 
 
 	addProperties(): ClassServiceFactory {
-		this.classService.propertiesPart = `${this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('constructor'))}\r\n`;
-		this.partOfContentFile = this.partOfContentFile.slice(this.partOfContentFile.indexOf('constructor'));
+		this.classService.propertiesPart = `${this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('constructor') - 3)}`;
+		this.partOfContentFile = this.partOfContentFile.slice(this.partOfContentFile.indexOf('constructor') - 3);
 		return this;
 	}
 
 
 
 	addConstructor(): ClassServiceFactory {
-		this.classService.propertiesPart = `${this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('}') + 1)}\r\n`;
+		this.classService.constructorPart = `${this.partOfContentFile.slice(0, this.partOfContentFile.indexOf('}') + 1)}\r\n`;
 		this.partOfContentFile = this.partOfContentFile.slice(this.partOfContentFile.indexOf('}'));
 		return this;
 	}

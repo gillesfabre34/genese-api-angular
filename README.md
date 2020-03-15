@@ -2,7 +2,7 @@
 
 genese-api-angular is a code generator for Angular apps.
 
-Create you OpenApi file and lauch genese-api-angular : all your DTOs and data-services will be automatically generated ! Moreover, all these data-services will use and return highly typed objects corresponding to the schemas included in you OpenApi file.
+Create you OpenApi file and launch genese-api-angular : all your DTOs and data-services will be automatically generated ! Moreover, all these data-services will use and return highly typed objects corresponding to the schemas included in you OpenApi file.
  
 Less code, less tests, less bugs, less waste of time.
 

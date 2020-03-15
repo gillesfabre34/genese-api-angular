@@ -4,7 +4,7 @@ import { ClassService } from '../services/class.service';
 
 export class GeneseRequestServiceFactory {
 
-	public classCreatorService = new ClassService();
+	public classService = new ClassService();
 	private fileService: FileService = new FileService();
 
 	constructor() {
@@ -18,30 +18,30 @@ export class GeneseRequestServiceFactory {
 		this.addDeclaration();
 		this.addConstructor();
 		this.addMethods();
-		this.fileService.createFile(`/genese/genese-api/services/genese-request.service.ts`, this.classCreatorService.getContent());
+		this.fileService.createFile(`/genese/genese-api/services/genese-request.service.ts`, this.classService.getContent());
 	}
 
 
 
 	addDeclaration(): void {
-		this.classCreatorService.setClassDeclarationPart('GeneseRequestService', '@Injectable()');
+		this.classService.setClassDeclarationPart('GeneseRequestService', '@Injectable()');
 	}
 
 
 
 	addImports(): void {
-		this.classCreatorService.addImport('Observable', 'rxjs');
-		this.classCreatorService.addImport('HttpClient', '@angular/common/http');
-		this.classCreatorService.addImport('Injectable', '@angular/core');
-		this.classCreatorService.addImport('GeneseEnvironmentService', 'genese-angular');
+		this.classService.addImport('Observable', 'rxjs');
+		this.classService.addImport('HttpClient', '@angular/common/http');
+		this.classService.addImport('Injectable', '@angular/core');
+		this.classService.addImport('GeneseEnvironmentService', 'genese-angular');
 	}
 
 
 
 	addConstructor(): void {
-		this.classCreatorService.addParamToConstructor(`private http: HttpClient,`);
-		this.classCreatorService.addParamToConstructor(`private geneseEnvironmentService: GeneseEnvironmentService,`);
-		this.classCreatorService.addInstructionToConstructor(`this.init();`);
+		this.classService.addParamToConstructor(`private http: HttpClient,`);
+		this.classService.addParamToConstructor(`private geneseEnvironmentService: GeneseEnvironmentService,`);
+		this.classService.addInstructionToConstructor(`this.init();`);
 	}
 
 
@@ -49,7 +49,7 @@ export class GeneseRequestServiceFactory {
 	addMethods(): void {
 		let method: Method = new Method();
 		method.setDeclaration('init');
-		this.classCreatorService.addMethod(method);
+		this.classService.addMethod(method);
 	}
 
 
