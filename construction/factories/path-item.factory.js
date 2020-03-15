@@ -8,19 +8,18 @@ var PathItemFactory = /** @class */ (function () {
         this.openApiService = open_api_service_1.OpenApiService.getInstance();
     }
     PathItemFactory.prototype.init = function (target, path) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f;
         this.openApiService.openApi.paths[path] = {};
-        if ((_d = (_c = (_b = (_a = target) === null || _a === void 0 ? void 0 : _a.get) === null || _b === void 0 ? void 0 : _b.responses) === null || _c === void 0 ? void 0 : _c['200']) === null || _d === void 0 ? void 0 : _d['content']) {
+        if ((_c = (_b = (_a = target === null || target === void 0 ? void 0 : target.get) === null || _a === void 0 ? void 0 : _a.responses) === null || _b === void 0 ? void 0 : _b['200']) === null || _c === void 0 ? void 0 : _c['content']) {
             var getRequestFactory = new get_request_factory_1.GetRequestFactory();
-            getRequestFactory.create(path, (_h = (_g = (_f = (_e = target) === null || _e === void 0 ? void 0 : _e.get) === null || _f === void 0 ? void 0 : _f.responses) === null || _g === void 0 ? void 0 : _g['200']) === null || _h === void 0 ? void 0 : _h['content']);
+            getRequestFactory.create(path, (_f = (_e = (_d = target === null || target === void 0 ? void 0 : target.get) === null || _d === void 0 ? void 0 : _d.responses) === null || _e === void 0 ? void 0 : _e['200']) === null || _f === void 0 ? void 0 : _f['content']);
         }
     };
     PathItemFactory.prototype.createDtos = function (path, pathItem) {
         this.createDtoIfMethodExists('get', pathItem);
     };
     PathItemFactory.prototype.createDtoIfMethodExists = function (method, pathItem) {
-        var _a;
-        if ((_a = pathItem) === null || _a === void 0 ? void 0 : _a[method]) {
+        if (pathItem === null || pathItem === void 0 ? void 0 : pathItem[method]) {
             this.createDto(method, pathItem);
         }
     };

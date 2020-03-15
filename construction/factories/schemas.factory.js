@@ -7,12 +7,11 @@ var SchemasFactory = /** @class */ (function () {
         this.openApiService = open_api_service_1.OpenApiService.getInstance();
     }
     SchemasFactory.prototype.init = function (target) {
-        var _a;
         // console.log('SCHEMAS init target', target);
-        if ((_a = target) === null || _a === void 0 ? void 0 : _a.schemas) {
+        if (target === null || target === void 0 ? void 0 : target.schemas) {
             this.openApiService.openApi.components.schemas = {};
-            for (var _i = 0, _b = Object.keys(target.schemas); _i < _b.length; _i++) {
-                var dtoName = _b[_i];
+            for (var _i = 0, _a = Object.keys(target.schemas); _i < _a.length; _i++) {
+                var dtoName = _a[_i];
                 var dtoFileFactory = new dto_file_factory_1.DtoFileFactory();
                 dtoFileFactory.create(dtoName, target.schemas[dtoName]);
                 this.openApiService.openApi.components.schemas[dtoName] = target.schemas[dtoName];
